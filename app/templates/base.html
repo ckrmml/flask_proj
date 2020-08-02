@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+{%- block html %}
+
+  <head>
+    {%- block head %}
+
+      <title>{% block title %}{{title|default}}{% endblock title %}</title>
+      <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      {%- block metas %}
+      {%- endblock metas %}
+
+      {%- block styles %}
+      {%- endblock styles %}
+
+    {%- endblock head %}
+
+  </head>
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+
+    {% block body -%}
+
+      {% block navbar %}
+      {%- endblock navbar %}
+
+      {% block content -%}
+      {%- endblock content %}
+
+      {% block footer -%}
+      {%- endblock %}
+
+      {% block scripts %}
+      {%- endblock scripts %}
+
+    {%- endblock body %}
+
+  </body>
+
+{%- endblock html %}
+
+</html>
