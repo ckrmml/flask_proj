@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-bp = Blueprint('main', __name__,
+bp = Blueprint('auth', __name__,
                template_folder='templates',
                static_folder='static'
               )
 
-from app.blueprints.main import routes
+from app.blueprints.auth import routes

@@ -1,4 +1,4 @@
-{% macro nav_link(endpoint, text) %}
+{% macro generate_navigation_link(endpoint, text) %}
   {% if request.endpoint.endswith(endpoint) %}
       <li class="active"><a href="{{ url_for(endpoint) }}">{{text}}</a></li>
   {% else %}

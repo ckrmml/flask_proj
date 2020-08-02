@@ -1,0 +1,18 @@
+{% extends "base.tmpl" %}
+
+{% block content %}
+{% from "macros/render_form_field.macro" import render_field %}
+
+  <form action="" method="post" class="form form-signin" role="form">
+    {{ form.csrf_token }}
+
+    <div class="form-group">
+      {{ render_field(form.username, class_="form-control") }}
+      {{ render_field(form.password, class_="form-control") }}
+      {{ render_field(form.remember_me, class_="form-control") }}
+    </div>
+
+    <input type="submit" value="Submit" />
+
+  </form>
+{% endblock %}

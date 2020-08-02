@@ -1,0 +1,11 @@
+{% extends 'base.tmpl' %}
+
+{% block navbar %}
+  {% include 'blocks/navbar.block' %}
+{%- endblock navbar %}
+
+{% block content %}
+  {% include 'blocks/flashed_messages.block' %}
+
+  {{ content }}
+{% endblock %}

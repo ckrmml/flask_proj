@@ -1,0 +1,11 @@
+{% from "macros/render_flashed_messages.macro" import render_message %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+      {{ render_message(message) }}
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endwith %}
