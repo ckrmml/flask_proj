@@ -8,3 +8,5 @@ class Config(object):
     # >>> import secrets
     # >>> secrets.token_urlsafe()
     SECRET_KEY = 'Iw4nilrNMIYuhsSBQxnxhj0ntOPCjA3Ydmia4li4w4s'
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
