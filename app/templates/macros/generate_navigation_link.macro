@@ -1,7 +1,17 @@
 {% macro generate_navigation_link(endpoint, text) %}
   {% if request.endpoint.endswith(endpoint) %}
-      <li class="active"><a href="{{ url_for(endpoint) }}">{{text}}</a></li>
+    <li class="active">
   {% else %}
-      <li><a href="{{ url_for(endpoint) }}">{{text}}</a></li>
+    <li>
   {% endif %}
+    <a href="{{ url_for(endpoint) }}">{{text}}</a></li>
+{% endmacro %}
+
+{% macro generate_navigation_profile_link(endpoint, text, user) %}
+  {% if request.endpoint.endswith(endpoint) %}
+    <li class="active">
+  {% else %}
+    <li>
+  {% endif %}
+    <a href="{{ url_for(endpoint, name=user ) }}">{{text}}</a></li>
 {% endmacro %}

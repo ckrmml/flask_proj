@@ -1,5 +1,9 @@
 {% extends "base.tmpl" %}
 
+{% block navbar %}
+  {% include 'blocks/navbar.block'%}
+{%- endblock navbar %}
+
 {% block content %}
   {% include 'blocks/flashed_messages.block' %}
 
@@ -10,8 +14,7 @@
 
     <div class="form-group">
       {{ render_field(form.name, class_="form-control") }}
-      {{ render_field(form.password, class_="form-control") }}
-      {{ render_field(form.remember_me, class_="form-control") }}
+      {{ render_field(form.mail, class_="form-control") }}
     </div>
 
     <input type="submit" value="Submit" />

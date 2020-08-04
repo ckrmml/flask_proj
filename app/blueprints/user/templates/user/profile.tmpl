@@ -1,0 +1,20 @@
+{% extends "base.tmpl" %}
+
+{% block navbar %}
+  {% include 'blocks/navbar.block'%}
+{%- endblock navbar %}
+
+{% block content %}
+  {% include 'blocks/flashed_messages.block' %}
+
+  <div>
+    <p>User avatar: <img src="{{ user.avatar(64) }}"></p>
+    <p>User: {{ user.name }}</p>
+    <p>Account deleted: {{ current_user.deleted }}</p>
+    <p>Account created: {{ current_user.creation }}</p>
+    <p>Last seen: {{ current_user.last_seen }}</p>
+  </div>
+  <div>
+
+  </div>
+{% endblock %}
