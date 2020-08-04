@@ -10,3 +10,10 @@ class Config(object):
     SECRET_KEY = 'Iw4nilrNMIYuhsSBQxnxhj0ntOPCjA3Ydmia4li4w4s'
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+
+    MAIL_SERVER = 'localhost'
+    MAIL_PORT = 8025
+    MAIL_USE_TLS = None
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
+    ADMINS = ['admin@test.de']

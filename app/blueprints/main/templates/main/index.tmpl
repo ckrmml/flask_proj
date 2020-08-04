@@ -6,6 +6,6 @@
 
 {% block content %}
   {% include 'blocks/flashed_messages.block' %}
-
+  <h1>Hi, {{ current_user.name }}!</h1>
   {{ content }}
 {% endblock %}

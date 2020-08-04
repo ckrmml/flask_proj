@@ -1,7 +1,14 @@
 {% from "macros/generate_navigation_link.macro" import generate_navigation_link with context %}
+{% from "macros/generate_navigation_link.macro" import generate_navigation_profile_link with context %}
 
 <div>
-  {{ app_name }}
+  {{ config.APP_NAME }}
   {{ generate_navigation_link('main.index', 'Home') }}
-  {{ generate_navigation_link('auth.login', 'LogIn') }}
+  {% if current_user.is_anonymous %}
+    {{ generate_navigation_link('auth.login', 'LogIn') }}
+  {% else %}
+    {{ generate_navigation_profile_link('user.profile', 'Profile', current_user.name) }}
+    {{ generate_navigation_link('user.edit_profile', 'Edit Profile') }}
+    {{ generate_navigation_link('auth.logout', 'LogOut') }}
+  {% endif %}
 </div>
