@@ -17,3 +17,5 @@ class Config(object):
     MAIL_USERNAME = ''
     MAIL_PASSWORD = ''
     ADMINS = ['admin@test.de']
+
+    LOG_DIR = 'logs'
