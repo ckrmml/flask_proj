@@ -4,6 +4,7 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 
 from flask import Flask
 from flask_login import LoginManager
+from flask_debugtoolbar import DebugToolbarExtension
 
 from config import Config
 from app.database import db
@@ -14,11 +15,14 @@ login.login_message = 'Please log in to access this page.'
 
 app_name = Config.APP_NAME
 
+toolbar = DebugToolbarExtension()
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     login.init_app(app)
+    toolbar.init_app(app)
 
     from app.blueprints.main import bp as main_bp
     app.register_blueprint(main_bp)
