@@ -23,7 +23,7 @@ class Config(object):
     # debug toolbar
     DEBUG_TB_ENABLED = True
     DEBUG_TB_HOSTS = 'http://127.0.0.1:5000'
-    DEBUG_TB_INTERCEPT_REDIRECTS = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG_TB_PANELS = ( 'flask_debugtoolbar.panels.versions.VersionDebugPanel',
                         'flask_debugtoolbar.panels.timer.TimerDebugPanel',
                         'flask_debugtoolbar.panels.headers.HeaderDebugPanel',
