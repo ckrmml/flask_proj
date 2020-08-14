@@ -5,8 +5,9 @@ from app.blueprints.errors import bp
 
 
 @bp.errorhandler(403)
-def forbidden_page(error):
+def forbidden_error(error):
     return render_template("errors/403.tmpl"), 403
+
 
 @bp.app_errorhandler(404)
 def not_found_error(error):

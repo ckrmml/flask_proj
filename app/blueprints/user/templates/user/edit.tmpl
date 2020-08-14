@@ -13,8 +13,8 @@
     {{ form.csrf_token }}
 
     <div class="form-group">
-      {{ render_field(form.name, class_="form-control") }}
-      {{ render_field(form.mail, class_="form-control") }}
+      {{ render_field_with_errors(form.name, class_="form-control") }}
+      {{ render_field_with_errors(form.mail, class_="form-control") }}
     </div>
 
     <input type="submit" value="Submit" />

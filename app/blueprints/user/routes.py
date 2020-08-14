@@ -20,7 +20,9 @@ def before_request():
 @login_required
 def profile(name):
     user = User.query.filter_by(name=name).first()
-    # TODO: catch user = None and throw 404
+    if user is None:
+        flash((f'We could not find a user with the name {name}'))
+        return redirect(url_for('main.index'))
     return render_template('user/profile.tmpl', user=user)
 
 @bp.route('/edit', methods=['GET', 'POST'])

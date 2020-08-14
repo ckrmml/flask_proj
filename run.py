@@ -13,7 +13,9 @@ def make_shell_context():
 @app.before_first_request
 def create_user():
     init_db()
-    user = User(name='chris', mail="test@me.com")
-    user.set_password('test')
-    db.add(user)
-    db.commit()
+    user = User.query.filter_by(name='chris').first()
+    if user is None:
+        user = User(name='chris', mail="test@me.com")
+        user.set_password('test')
+        db.add(user)
+        db.commit()

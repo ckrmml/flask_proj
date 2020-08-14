@@ -1,11 +1,9 @@
-{% from "macros/render_flashed_messages.macro" import render_message %}
-
-{% with messages = get_flashed_messages() %}
+{%- with messages = get_flashed_messages(with_categories=true) -%}
   {% if messages %}
-  <ul>
-    {% for message in messages %}
-      {{ render_message(message) }}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
     {% endfor %}
-  </ul>
+    </ul>
   {% endif %}
-{% endwith %}
+{%- endwith %}
