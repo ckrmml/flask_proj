@@ -25,10 +25,11 @@ def profile(name):
         return redirect(url_for('main.index'))
     return render_template('user/profile.tmpl', user=user)
 
+
 @bp.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm(current_user.name)
+    form = EditProfileForm(current_user.name, current_user.mail)
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.mail = form.mail.data

@@ -8,12 +8,19 @@ class EditProfileForm(FlaskForm):
     mail = StringField('Mail', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-    def __init__(self, original_name, *args, **kwargs):
+    def __init__(self, original_name, original_mail, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_name = original_name
+        self.original_mail = original_mail
 
     def validate_username(self, name):
         if name.data != self.original_name:
             user = User.query.filter_by(name=self.name.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
+
+    def validate_email(self, email):
+        if mail.data != self.original_mail:
+            user = User.query.filter_by(mail=mail.data).first()
+            if user is not None:
+                raise ValidationError('Please use a different email address.')
