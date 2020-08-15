@@ -1,7 +1,7 @@
 """user table
 
 Revision ID: 8af945b12366
-Revises: 
+Revises:
 Create Date: 2020-08-04 20:31:36.030072
 
 """
@@ -23,7 +23,6 @@ def upgrade():
     sa.Column('name', sa.String(length=64), nullable=True),
     sa.Column('mail', sa.String(length=120), nullable=True),
     sa.Column('hash', sa.String(length=128), nullable=True),
-    sa.Column('deleted', sa.Boolean(), nullable=True),
     sa.Column('creation', sa.DateTime(), nullable=True),
     sa.Column('last_seen', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')

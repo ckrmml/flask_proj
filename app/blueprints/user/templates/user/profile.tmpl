@@ -11,7 +11,8 @@
     <p>User avatar: <img src="{{ user.avatar(64) }}"></p>
     <p>User: {{ user.name }}</p>
     <p>Account deleted: {{ current_user.deleted }}</p>
-    <p>Account created: {{ current_user.creation }}</p>
+    <p>Account deleted on: {{ current_user.deleted_on }}</p>
+    <p>Account created on: {{ current_user.creation }}</p>
     <p>Last seen: {{ current_user.last_seen }}</p>
     <p>Confirmed: {{ current_user.confirmed }}</p>
     <p>Confirmed on: {{ current_user.confirmed_on }}</p>

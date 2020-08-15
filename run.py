@@ -17,5 +17,7 @@ def create_user():
     if user is None:
         user = User(name='chris', mail="test@me.com")
         user.set_password('test')
+        user.confirmed = True
+        user.active = True
         db.add(user)
         db.commit()

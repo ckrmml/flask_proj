@@ -27,14 +27,16 @@ class User(UserMixin, Base):
     name = Column(String(64), index=True, unique=True)
     mail = Column(String(120), index=True, unique=True)
     hash = Column(String(128))
-    deleted = Column(Boolean, default=False)
     creation = Column(DateTime, default=datetime.utcnow)
     last_seen = Column(DateTime, default=datetime.utcnow)
     confirmed = Column(Boolean, default=False)
     confirmed_on = Column(DateTime)
     active = Column(Boolean, default=False)
+    deleted = Column(Boolean, default=False)
+    deleted_on = Column(DateTime)
     # NOTE: FINISH THIS
     # hidden = Column(Boolean, default=False)
+
     def set_password(self, password):
         self.hash = generate_password_hash(password)
 

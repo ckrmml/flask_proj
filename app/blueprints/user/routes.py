@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from app import app_name, db
 from app.blueprints.user import bp
 from app.database.models import User
-from app.blueprints.user.forms import EditProfileForm
+from app.blueprints.user.forms import EmptyForm, EditProfileForm
 
 
 @bp.before_request
@@ -41,3 +41,24 @@ def edit_profile():
         form.mail.data = current_user.mail
     return render_template('user/edit.tmpl', title='Edit Profile',
                            form=form)
+
+@bp.route('/delete', methods=['GET', 'POST'])
+@login_required
+def delete_account():
+    form = EmptyForm()
+    if form.validate_on_submit():
+        current_user.name = '[deleted]'
+        current_user.mail = '[deleted]'
+        current_user.hash = '[deleted]'
+        # user.creation = '[deleted]'
+        # user.last_seen = '[deleted]'
+        # user.confirmed = True
+        # user.confirmed_on = '[deleted]'
+        current_user.active = False
+        current_user.deleted = True
+        current_user.deleted_on = datetime.utcnow()
+        db.commit()
+        current_user
+        flash('Your account has been deleted!')
+        return redirect(url_for('auth.logout'))
+    return render_template('user/delete.tmpl', form=form)
