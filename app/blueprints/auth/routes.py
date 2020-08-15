@@ -1,16 +1,12 @@
-from flask import ( render_template,
-                    flash,
-                    redirect,
-                    url_for,
-                    request
-                  )
+from datetime import datetime
 
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user
 
 from werkzeug.urls import url_parse
 
 from app import app_name, db
-from app.email import send_password_reset_email
+from app.email import send_password_reset_email, send_account_confirmation_mail
 from app.blueprints.auth import bp
 from app.blueprints.auth.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.database.models import User
@@ -25,6 +21,9 @@ def login():
         user = User.query.filter_by(name=form.name.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
+            return redirect(url_for('auth.login'))
+        if not user.confirmed:
+            flash('Your account has not been verified. Please check your mails and click the link')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -51,6 +50,7 @@ def register():
         user.set_password(form.password.data)
         db.add(user)
         db.commit()
+        send_account_confirmation_mail(user)
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.tmpl', title='Register', form=form)
@@ -85,3 +85,18 @@ def perform_password_reset(token):
         flash('Your password has been reset.')
         return redirect(url_for('auth.login'))
     return render_template('auth/perform_reset.tmpl', form=form)
+
+
+@bp.route('/confirm/<token>', methods=['GET', 'POST'])
+def confirm_registration(token):
+    user = User.verify_token(token, token_type='confirm_registration')
+    if not user:
+        return redirect(url_for('main.index'))
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.utcnow()
+        user.active = True
+        db.commit()
+        flash('Your account has been confirmed.')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/confirm_registration.tmpl')

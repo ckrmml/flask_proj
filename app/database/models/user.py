@@ -30,7 +30,11 @@ class User(UserMixin, Base):
     deleted = Column(Boolean, default=False)
     creation = Column(DateTime, default=datetime.utcnow)
     last_seen = Column(DateTime, default=datetime.utcnow)
-
+    confirmed = Column(Boolean, default=False)
+    confirmed_on = Column(DateTime)
+    active = Column(Boolean, default=False)
+    # NOTE: FINISH THIS
+    # hidden = Column(Boolean, default=False)
     def set_password(self, password):
         self.hash = generate_password_hash(password)
 

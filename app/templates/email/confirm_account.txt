@@ -1,0 +1,9 @@
+Dear {{ user.name }},
+
+To confirm the creation of your account click on the following link:
+
+{{ url_for('auth.confirm_registration', token=token, _external=True) }}
+
+Sincerely,
+
+The {{ app.config['APP_NAME'] }} Team

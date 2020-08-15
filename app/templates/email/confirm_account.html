@@ -1,0 +1,11 @@
+<p>Dear {{ user.name }},</p>
+<p>
+  To confirm the creation of your account
+    <a href="{{ url_for('auth.confirm_registration', token=token, _external=True) }}">
+        click here
+    </a>.
+</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('auth.confirm_registration', token=token, _external=True) }}</p>
+<p>Sincerely,</p>
+<p>The {{ app.config['APP_NAME'] }} Team</p>

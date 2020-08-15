@@ -35,3 +35,14 @@ def send_password_reset_email(user):
                                          user=user, token=token, app=current_app),
                html_body=render_template('email/reset_password.html',
                                          user=user, token=token, app=current_app))
+
+
+def send_account_confirmation_mail(user):
+    token = user.get_token(token_type='confirm_registration')
+    send_email(f'[{current_app.config["APP_NAME"]}] Confirm your account',
+               sender=current_app.config['ADMINS'][0],
+               recipients=[user.mail],
+               text_body=render_template('email/confirm_account.txt',
+                                         user=user, token=token, app=current_app),
+               html_body=render_template('email/confirm_account.html',
+                                         user=user, token=token, app=current_app))
