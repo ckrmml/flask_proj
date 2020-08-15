@@ -10,8 +10,9 @@ from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app import app_name, db
+from app.email import send_password_reset_email
 from app.blueprints.auth import bp
-from app.blueprints.auth.forms import LoginForm, RegistrationForm
+from app.blueprints.auth.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.database.models import User
 
 
@@ -53,3 +54,34 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.tmpl', title='Register', form=form)
+
+
+@bp.route('/reset', methods=['GET', 'POST'])
+def request_password_reset():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(mail=form.mail.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/request_reset.tmpl',
+                           title='Reset Password', form=form)
+
+
+@bp.route('/reset/<token>', methods=['GET', 'POST'])
+def perform_password_reset(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('main.index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/perform_reset.tmpl', form=form)

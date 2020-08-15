@@ -1,10 +1,14 @@
+import jwt
+
+from time import time
 from hashlib import md5
 from datetime import datetime
 
-from app import db
-from app import login
+# import app
+from app import db, login
 from app.database import Base
 
+from flask import current_app
 from flask_login import UserMixin
 
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
@@ -26,7 +30,7 @@ class User(UserMixin, Base):
     deleted = Column(Boolean, default=False)
     creation = Column(DateTime, default=datetime.utcnow)
     last_seen = Column(DateTime, default=datetime.utcnow)
-    
+
     def set_password(self, password):
         self.hash = generate_password_hash(password)
 
@@ -37,6 +41,20 @@ class User(UserMixin, Base):
         digest = md5(self.mail.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, current_app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
 
     def __repr__(self):
         return f'<User {self.name}>'

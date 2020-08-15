@@ -3,12 +3,14 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 
 from flask import Flask
+from flask_mail import Mail
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 
 from config import Config
 from app.database import db
 
+mail = Mail()
 login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message = 'Please log in to access this page.'
@@ -21,6 +23,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    mail.init_app(app)
     login.init_app(app)
     toolbar.init_app(app)
 

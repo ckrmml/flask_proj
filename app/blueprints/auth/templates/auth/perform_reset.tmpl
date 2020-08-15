@@ -1,0 +1,17 @@
+{% extends "base.tmpl" %}
+
+{% block content %}
+  {% include 'blocks/flashed_messages.block' %}
+  {% from "macros/render_form_field.macro" import render_field_with_errors %}
+
+  <h1>Reset Your Password</h1>
+  <form action="" method="post" class="form form-reset" role="form">
+    {{ form.csrf_token }}
+    <div class="form-group">
+      {{ render_field_with_errors(form.password, class_="form-control") }}
+      {{ render_field_with_errors(form.password2, class_="form-control") }}
+    </div>
+
+    <input type="submit" value="Submit" />
+
+{% endblock %}
