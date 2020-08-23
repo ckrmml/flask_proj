@@ -41,7 +41,7 @@ def login():
                            register=config['ENABLE_REGISTRATION'],
                            reset=config['ENABLE_PASSWORD_RESET'])
 
-@bp.route('/logout')
+@bp.route('/logout', methods=['GET'])
 def logout():
     logout_user()
     flash('You were logged out.', 'success')

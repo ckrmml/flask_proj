@@ -16,7 +16,7 @@ def before_request():
         db.commit()
 
 
-@bp.route('/user/<name>')
+@bp.route('/user/<name>',  methods=['GET'])
 @login_required
 def profile(name):
     user = User.query.filter_by(name=name).first()
