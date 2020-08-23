@@ -43,6 +43,11 @@ class User(UserMixin, Base):
     def check_password(self, password):
         return check_password_hash(self.hash, password)
 
+    def confirm(self):
+        self.confirmed = True
+        self.confirmed_on = datetime.utcnow()
+        self.active = True
+
     def avatar(self, size):
         digest = md5(self.mail.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(

@@ -17,12 +17,17 @@
     <input type="submit" value="Submit" />
 
   </form>
-  <p>
-    Forgot Your Password?
-    <a href="{{ url_for('auth.request_password_reset') }}">Click to reset it</a>
-  </p>
-  <p>
-    Don't have an account yet?
-    <a href="{{ url_for('auth.register') }}">Click to create one</a>
-  </p>
+  {% if reset %}
+    <p>
+      Forgot Your Password?
+      <a href="{{ url_for('auth.request_password_reset') }}">Click to reset it</a>
+    </p>
+  {% endif %}
+
+  {% if register %}
+    <p>
+      Don't have an account yet?
+      <a href="{{ url_for('auth.register') }}">Click to create one</a>
+    </p>
+  {% endif %}
 {% endblock %}

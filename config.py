@@ -20,10 +20,17 @@ class Config(object):
 
     LOG_DIR = 'logs'
 
-    # debug toolbar
+    ENABLE_REGISTRATION = False
+    CONFIRM_REGISTRATION = True
+    LOGIN_AFTER_CONFIRMATION = True
+
+    ENABLE_PASSWORD_RESET = False
+
     DEBUG_TB_ENABLED = True
     DEBUG_TB_HOSTS = 'http://127.0.0.1:5000'
+    DEBUG_TB_PROFILER_ENABLED = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
+    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
     DEBUG_TB_PANELS = ( 'flask_debugtoolbar.panels.versions.VersionDebugPanel',
                         'flask_debugtoolbar.panels.timer.TimerDebugPanel',
                         'flask_debugtoolbar.panels.headers.HeaderDebugPanel',
@@ -35,5 +42,3 @@ class Config(object):
                         'flask_debugtoolbar.panels.route_list.RouteListDebugPanel',
                         'flask_debugtoolbar.panels.profiler.ProfilerDebugPanel'
                       )
-    DEBUG_TB_PROFILER_ENABLED = False
-    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
