@@ -42,6 +42,7 @@ def edit_profile():
     return render_template('user/edit.tmpl', title='Edit Profile',
                            form=form)
 
+
 @bp.route('/delete', methods=['GET', 'POST'])
 @login_required
 def delete_account():

@@ -6,11 +6,13 @@ from app.blueprints.main import bp
 
 from datetime import datetime
 
+
 @bp.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.commit()
+
 
 @bp.route('/', methods=['GET'])
 @bp.route('/index', methods=['GET'])
