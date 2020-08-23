@@ -49,7 +49,8 @@ def delete_account():
     form = EmptyForm()
     if form.validate_on_submit():
         current_user.name = '[deleted]'
-        current_user.mail = '[deleted]'
+        current_user.name = current_user.get_token('user_deleted')
+        current_user.mail = current_user.get_token('user_deleted')
         current_user.hash = '[deleted]'
         # user.creation = '[deleted]'
         # user.last_seen = '[deleted]'
@@ -59,7 +60,6 @@ def delete_account():
         current_user.deleted = True
         current_user.deleted_on = datetime.utcnow()
         db.commit()
-        current_user
         flash('Your account has been deleted!')
         return redirect(url_for('auth.logout'))
     return render_template('user/delete.tmpl', form=form)
