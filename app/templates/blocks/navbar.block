@@ -8,7 +8,6 @@
     {{ generate_navigation_link('auth.login', 'LogIn') }}
   {% else %}
     {{ generate_navigation_profile_link('user.profile', 'Profile', current_user.name) }}
-    {{ generate_navigation_link('user.edit_profile', 'Edit Profile') }}
     {{ generate_navigation_link('auth.logout', 'LogOut') }}
   {% endif %}
 </div>

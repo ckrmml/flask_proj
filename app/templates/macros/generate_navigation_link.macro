@@ -13,5 +13,5 @@
   {% else %}
     <li>
   {% endif %}
-    <a href="{{ url_for(endpoint, name=user ) }}">{{text}}</a></li>
+    <a href="{{ url_for(endpoint, name=user) }}">{{text}}</a></li>
 {% endmacro %}
