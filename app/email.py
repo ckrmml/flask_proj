@@ -46,3 +46,13 @@ def send_account_confirmation_mail(user):
                                          user=user, token=token, app=current_app),
                html_body=render_template('email/confirm_account.html',
                                          user=user, token=token, app=current_app))
+
+
+def send_account_confirmed_mail(user):
+    send_email(f'[{current_app.config["APP_NAME"]}] Your account has been confirmed',
+               sender=current_app.config['ADMINS'][0],
+               recipients=[user.mail],
+               text_body=render_template('email/account_confirmed.txt',
+                                         user=user, app=current_app),
+               html_body=render_template('email/account_confirmed.html',
+                                         user=user, app=current_app))

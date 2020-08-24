@@ -1,0 +1,9 @@
+Dear {{ user.name }},
+
+Your account has been confirmed, click here to go to the login page
+
+{{ url_for('auth.login', _external=True) }}
+
+Sincerely,
+
+The {{ app.config['APP_NAME'] }} Team

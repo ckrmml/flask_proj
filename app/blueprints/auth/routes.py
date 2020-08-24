@@ -16,27 +16,31 @@ from app.database.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    config = current_app.config
+
+    if not config['ENABLE_LOGIN']: abort(404)
+
     if current_user.is_authenticated:
         return redirect( url_for('main.index') )
 
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(name=form.name.data).first()
+
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
-        if config['CONFIRM_REGISTRATION']:
-            if not user.confirmed:
-                flash('Your account has not been verified. Please check your mails and click the link')
-                return redirect(url_for('auth.login'))
-        else:
-            user.confirmed
+
+        if config['CONFIRM_REGISTRATION'] and not user.confirmed:
+            flash('Your account has not been verified. Please check your mails and click the link')
+            return redirect(url_for('auth.login'))
+
         login_user(user, remember=form.remember_me.data)
+
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
-    config = current_app.config
     return render_template('auth/login.tmpl', title='login', form=form,
                            register=config['ENABLE_REGISTRATION'],
                            reset=config['ENABLE_PASSWORD_RESET'])
@@ -61,7 +65,8 @@ def is_unique_mail(mail):
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     config = current_app.config
-    if not config['ENABLE_REGISTRATION']: abort(404)
+    if not config['ENABLE_REGISTRATION']:
+        abort(404)
 
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -84,7 +89,7 @@ def register():
         if not config['CONFIRM_REGISTRATION']:
             user.confirm()
             db.commit()
-            if config['LOGIN_AFTER_CONFIRMATION']:
+            if config['LOGIN_ON_CONFIRMATION']:
                 login_user(user, remember=False)
                 return redirect(url_for('main.index'))
         send_account_confirmation_mail(user)
@@ -144,8 +149,13 @@ def confirm_registration(token):
         user.confirm()
         db.commit()
         flash('Your account has been confirmed.')
-        if config['LOGIN_AFTER_CONFIRMATION']:
+
+        if config['MAIL_ON_CONFIRMATION']:
+            send_account_confirmed_mail(user)
+
+        if config['LOGIN_ON_CONFIRMATION']:
             login_user(user, remember=False)
             return redirect(url_for('main.index'))
+
         return redirect(url_for('auth.login'))
     return render_template('auth/confirm_registration.tmpl')

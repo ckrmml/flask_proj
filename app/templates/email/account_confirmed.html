@@ -1,0 +1,11 @@
+<p>Dear {{ user.name }},</p>
+<p>
+  Your account has been confirmed
+    <a href="{{ url_for('auth.login', _external=True) }}">
+        click here to go to the login page
+    </a>.
+</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('auth.login', _external=True) }}</p>
+<p>Sincerely,</p>
+<p>The {{ app.config['APP_NAME'] }} Team</p>
