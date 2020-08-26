@@ -7,7 +7,8 @@ from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app import app_name, db
-from app.email import send_password_reset_email, send_account_confirmation_mail
+from app.email import send_password_reset_email, send_account_confirmation_mail, \
+                      send_account_confirmed_mail
 from app.blueprints.auth import bp
 from app.blueprints.auth.forms import LoginForm, RegistrationForm, \
                                       ResetPasswordRequestForm, ResetPasswordForm
