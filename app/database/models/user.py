@@ -53,13 +53,13 @@ class User(UserMixin, Base):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-    def get_token(self, token_type='', expires_in=600):
+    def get_token(self, token_type, expires_in=600):
         return jwt.encode(
             {f'{token_type}': self.id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
     @staticmethod
-    def verify_token(token, token_type=''):
+    def verify_token(token, token_type):
         try:
             id = jwt.decode(token, current_app.config['SECRET_KEY'],
                             algorithms=['HS256'])[f'{token_type}']
