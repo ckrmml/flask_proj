@@ -6,6 +6,7 @@ from flask_login import login_required, current_user
 from app import app_name, db
 from app.blueprints.user import bp
 from app.database.models import User
+from app.blueprints.user.utils import get_deleted_uuid
 from app.blueprints.user.forms import EmptyForm, EditProfileForm
 
 
@@ -48,10 +49,9 @@ def edit_profile():
 def delete_account():
     form = EmptyForm()
     if form.validate_on_submit():
-        current_user.name = '[deleted]'
-        current_user.name = current_user.get_token('user_deleted')
-        current_user.mail = current_user.get_token('user_deleted')
-        current_user.hash = '[deleted]'
+        current_user.name = get_deleted_uuid(f'{current_user.name}{current_user.id}')
+        current_user.mail = get_deleted_uuid(f'{current_user.mail}{current_user.id}')
+        current_user.hash = get_deleted_uuid(f'{current_user.hash}{current_user.id}')
         # user.creation = '[deleted]'
         # user.last_seen = '[deleted]'
         # user.confirmed = True
