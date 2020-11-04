@@ -1,13 +1,22 @@
 from datetime import datetime
 
-from flask import render_template, request, redirect, flash, url_for
-from flask_login import login_required, current_user
+from flask import render_template
+from flask import request
+from flask import redirect
+from flask import flash
+from flask import url_for
 
-from app import app_name, db
-from app.blueprints.user import bp
+from flask_login import login_required
+from flask_login import current_user
+
+from app import db
+from app import utils
+
 from app.database.models import User
-from app.blueprints.user.utils import get_deleted_uuid
-from app.blueprints.user.forms import EmptyForm, EditProfileForm
+
+from app.blueprints.user import bp
+from app.blueprints.user.forms import EmptyForm
+from app.blueprints.user.forms import EditProfileForm
 
 
 @bp.before_request
@@ -49,17 +58,7 @@ def edit_profile():
 def delete_account():
     form = EmptyForm()
     if form.validate_on_submit():
-        current_user.name = get_deleted_uuid(f'{current_user.name}{current_user.id}')
-        current_user.mail = get_deleted_uuid(f'{current_user.mail}{current_user.id}')
-        current_user.hash = get_deleted_uuid(f'{current_user.hash}{current_user.id}')
-        # user.creation = '[deleted]'
-        # user.last_seen = '[deleted]'
-        # user.confirmed = True
-        # user.confirmed_on = '[deleted]'
-        current_user.active = False
-        current_user.deleted = True
-        current_user.deleted_on = datetime.utcnow()
-        db.commit()
+        User.delete(current_user)
         flash('Your account has been deleted!')
         return redirect(url_for('auth.logout'))
     return render_template('user/delete.tmpl', form=form)

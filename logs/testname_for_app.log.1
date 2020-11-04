@@ -1,0 +1,129 @@
+2020-09-22 08:12:55,750 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:16:11,785 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:16:16,502 INFO: Load profile for chris [in /home/test/dev/flask_proj/app/blueprints/user/routes.py:24]
+2020-09-22 08:16:56,001 INFO: Load profile for chris [in /home/test/dev/flask_proj/app/blueprints/user/routes.py:24]
+2020-09-22 08:31:58,605 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:32:44,189 ERROR: Exception on /auth/register [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/app/blueprints/auth/routes.py", line 99, in register
+    send_account_confirmation_mail(user)
+  File "/home/test/dev/flask_proj/app/email.py", line 41, in send_account_confirmation_mail
+    token = utils.get_token(user, token_type='confirm_registration')
+  File "/home/test/dev/flask_proj/app/utils.py", line 22, in get_token
+    {f'{token_type}': self.id, 'exp': time() + expires_in},
+NameError: name 'self' is not defined
+2020-09-22 08:33:32,335 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:34:01,904 ERROR: Exception on /delete [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/test/dev/flask_proj/app/blueprints/user/routes.py", line 54, in delete_account
+    current_user.name = get_deleted_uuid(f'{current_user.name}{current_user.id}')
+NameError: name 'get_deleted_uuid' is not defined
+2020-09-22 08:34:37,954 ERROR: Exception on /delete [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/test/dev/flask_proj/app/blueprints/user/routes.py", line 54, in delete_account
+    current_user.name = utils.get_deleted_uuid(f'{current_user.name}{current_user.id}')
+NameError: name 'get_deleted_uuid' is not defined
+2020-09-22 08:35:49,573 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:40:59,731 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 08:41:23,677 ERROR: Exception on /delete [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/test/dev/flask_proj/app/blueprints/user/routes.py", line 61, in delete_account
+    current_user.delete()
+  File "/home/test/dev/flask_proj/app/database/models/user.py", line 60, in delete
+    self.name = utils.get_deleted_uuid(f'{self.name}{self.id}')
+NameError: name 'utils' is not defined
+2020-09-22 08:41:44,978 ERROR: Exception on /delete [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/test/dev/flask_proj/app/blueprints/user/routes.py", line 61, in delete_account
+    current_user.delete()
+  File "/home/test/dev/flask_proj/app/database/models/user.py", line 60, in delete
+    def delete(self):
+NameError: name 'utils' is not defined
+2020-09-22 12:15:21,656 INFO: testname for app startup [in /home/test/dev/flask_proj/app/__init__.py:70]
+2020-09-22 12:15:27,498 ERROR: Exception on /delete [POST] [in /home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/test/dev/flask_proj/.venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/test/dev/flask_proj/app/blueprints/user/routes.py", line 61, in delete_account
+    current_user.delete(surrent_user)
+NameError: name 'surrent_user' is not defined

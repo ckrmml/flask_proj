@@ -4,21 +4,31 @@ from time import time
 from hashlib import md5
 from datetime import datetime
 
-# import app
-from app import db, login
+from app import db
+from app import utils
+from app import login
+
 from app.database import Base
 
 from flask import current_app
+
 from flask_login import UserMixin
 
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import Boolean
+from sqlalchemy import DateTime
 
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+
 
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 class User(UserMixin, Base):
     __tablename__ = 'users'
@@ -53,10 +63,19 @@ class User(UserMixin, Base):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-    def get_token(self, token_type, expires_in=600):
-        return jwt.encode(
-            {f'{token_type}': self.id, 'exp': time() + expires_in},
-            current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+    @staticmethod
+    def delete(user):
+        user.name = utils.get_uuid(f'{user.name}{user.id}')
+        user.mail = utils.get_uuid(f'{user.mail}{user.id}')
+        user.hash = utils.get_uuid(f'{user.hash}{user.id}')
+        user.creation = utils.get_uuid(f'{user.creation}{user.id}')
+        user.last_seen = utils.get_uuid(f'{user.last_seen}{user.id}')
+        user.confirmed = False
+        user.confirmed_on = utils.get_uuid(f'{user.confirmed_on}{user.id}')
+        user.active = False
+        user.deleted = True
+        user.deleted_on = datetime.utcnow()
+        db.commit()
 
     @staticmethod
     def verify_token(token, token_type):

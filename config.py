@@ -28,20 +28,3 @@ class Config(object):
     LOGIN_ON_CONFIRMATION = True
 
     ENABLE_PASSWORD_RESET = False
-
-    DEBUG_TB_ENABLED = True
-    DEBUG_TB_HOSTS = 'http://127.0.0.1:5000'
-    DEBUG_TB_PROFILER_ENABLED = False
-    DEBUG_TB_INTERCEPT_REDIRECTS = False
-    DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
-    DEBUG_TB_PANELS = ( 'flask_debugtoolbar.panels.versions.VersionDebugPanel',
-                        'flask_debugtoolbar.panels.timer.TimerDebugPanel',
-                        'flask_debugtoolbar.panels.headers.HeaderDebugPanel',
-                        'flask_debugtoolbar.panels.request_vars.RequestVarsDebugPanel',
-                        'flask_debugtoolbar.panels.config_vars.ConfigVarsDebugPanel',
-                        'flask_debugtoolbar.panels.template.TemplateDebugPanel',
-                        'flask_debugtoolbar.panels.sqlalchemy.SQLAlchemyDebugPanel',
-                        'flask_debugtoolbar.panels.logger.LoggingPanel',
-                        'flask_debugtoolbar.panels.route_list.RouteListDebugPanel',
-                        'flask_debugtoolbar.panels.profiler.ProfilerDebugPanel'
-                      )

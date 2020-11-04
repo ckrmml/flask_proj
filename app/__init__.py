@@ -7,7 +7,6 @@ from flask_mail import Mail
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 
-from config import Config
 from app.database import db
 
 mail = Mail()
@@ -15,17 +14,20 @@ login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message = 'Please log in to access this page.'
 
-app_name = Config.APP_NAME
-
 toolbar = DebugToolbarExtension()
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(config_class)
+def create_app():
+    app = Flask(__name__, instance_relative_config=True)
+
+    app.config.from_object('config.default')
+    app.config.from_envvar('APP_CONFIG_FILE')
+    app.config.from_pyfile('config.py')
 
     mail.init_app(app)
     login.init_app(app)
-    toolbar.init_app(app)
+
+    if os.getenv("FLASK_ENV") == 'development':
+        toolbar.init_app(app)
 
     from app.blueprints.main import bp as main_bp
     app.register_blueprint(main_bp)

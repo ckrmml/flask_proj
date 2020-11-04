@@ -1,18 +1,35 @@
 from datetime import datetime
 
-from flask import render_template, flash, redirect, url_for, \
-                  request, current_app, abort
-from flask_login import current_user, login_user, logout_user
+from flask import render_template
+from flask import flash
+from flask import redirect
+from flask import url_for
+from flask import request
+from flask import current_app
+from flask import abort
+
+from flask_login import current_user
+from flask_login import login_user
+from flask_login import logout_user
 
 from werkzeug.urls import url_parse
 
-from app import app_name, db
-from app.email import send_password_reset_email, send_account_confirmation_mail, \
-                      send_account_confirmed_mail
+from app import db
+from app import utils
+
+from app.email import send_password_reset_email
+from app.email import send_account_confirmation_mail
+from app.email import send_account_confirmed_mail
+
 from app.blueprints.auth import bp
-from app.blueprints.auth.forms import LoginForm, RegistrationForm, \
-                                      ResetPasswordRequestForm, ResetPasswordForm
+from app.blueprints.auth.forms import LoginForm
+from app.blueprints.auth.forms import RegistrationForm
+from app.blueprints.auth.forms import ResetPasswordRequestForm
+from app.blueprints.auth.forms import ResetPasswordForm
+
 from app.database.models import User
+from app.database.queries import is_unique_name
+from app.database.queries import is_unique_mail
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -46,22 +63,13 @@ def login():
                            register=config['ENABLE_REGISTRATION'],
                            reset=config['ENABLE_PASSWORD_RESET'])
 
+
 @bp.route('/logout', methods=['GET'])
 def logout():
     logout_user()
     flash('You were logged out.', 'success')
     return redirect(url_for('auth.login'))
 
-
-def is_unique_name(name):
-    user = User.query.filter_by(name=name).first()
-    if user is None: return True
-    return False
-
-def is_unique_mail(mail):
-    user = User.query.filter_by(mail=mail).first()
-    if user is None: return True
-    return False
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -126,8 +134,10 @@ def perform_password_reset(token):
         return redirect(url_for('main.index'))
 
     user = User.verify_token(token, token_type='reset_password')
+
     if not user:
         return redirect(url_for('main.index'))
+
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
@@ -144,6 +154,7 @@ def confirm_registration(token):
     if not config['CONFIRM_REGISTRATION']: abort(404)
 
     user = User.verify_token(token, token_type='confirm_registration')
+
     if not user:
         return redirect(url_for('main.index'))
     else:

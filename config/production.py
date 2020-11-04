@@ -1,0 +1,21 @@
+print('[CONFIG] imported config.production')
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+
+MAIL_SERVER = 'localhost'
+MAIL_PORT = 8025
+MAIL_USE_TLS = None
+MAIL_USERNAME = ''
+MAIL_PASSWORD = ''
+ADMINS = ['admin@test.de']
+
+LOG_DIR = 'logs'
+
+ENABLE_LOGIN = True
+
+ENABLE_REGISTRATION = True
+CONFIRM_REGISTRATION = True
+MAIL_ON_CONFIRMATION = True
+LOGIN_ON_CONFIRMATION = True
+
+ENABLE_PASSWORD_RESET = True
